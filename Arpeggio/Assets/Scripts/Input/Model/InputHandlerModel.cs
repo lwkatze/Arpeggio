@@ -70,8 +70,8 @@ namespace App.Input
 
 	public struct TouchInfo
 	{
-		TouchPhase phase;
-		Vector2 position;
+		public TouchPhase phase;
+		public Vector2 position;
 
 		public TouchInfo(TouchPhase touchPhase, Vector2 touchPos)
 		{

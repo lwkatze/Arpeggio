@@ -14,7 +14,7 @@ namespace App.Input
 
 		void Start()
 		{
-			if(mainCamera ==null)
+			if(mainCamera == null)
 				mainCamera = Camera.main;
 		}
 
