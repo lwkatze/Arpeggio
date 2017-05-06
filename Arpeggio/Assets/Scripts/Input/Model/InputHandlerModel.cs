@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
+using System.Linq;
 using UnityEngine;
 
 namespace App.Input
@@ -8,7 +10,8 @@ namespace App.Input
 	{
 		public static InputHandlerModel inputHandlerModel;
 
-		public static InputObject[] inputs;
+		public InputObject[] inputs;
+		[HideInInspector]public GameObject[] InputObjs;
 
 		void Awake()
 		{
@@ -18,8 +21,19 @@ namespace App.Input
 			if (this != inputHandlerModel)
 				Destroy(this);
 		}
+
+		void Start()
+		{
+			getAllInputObjects();
+		}
+
+		void getAllInputObjects()
+		{
+			InputObjs = inputs.Select(x => x.inputObj).ToArray();
+		}
 	}
 
+	[System.Serializable]
 	public class InputObject
 	{
 		/// <summary>
@@ -42,7 +56,7 @@ namespace App.Input
 		/// </summary>
 		public float axis { get { return axis; } }
 
-		public GameObject button = null;
+		public GameObject inputObj = null;
 
 		private float m_axis;
 
@@ -54,5 +68,21 @@ namespace App.Input
 		}
 	}
 
+	public struct TouchInfo
+	{
+		TouchPhase phase;
+		Vector2 position;
 
+		public TouchInfo(TouchPhase touchPhase, Vector2 touchPos)
+		{
+			phase = touchPhase;
+			position = touchPos;
+		}
+
+		public TouchInfo(Touch touch)
+		{
+			phase = touch.phase;
+			position = touch.position;
+		}
+	}
 }

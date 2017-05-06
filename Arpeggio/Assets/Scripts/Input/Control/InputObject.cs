@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using App.Input;
 
-namespace App.Input
+public class InputObject : MonoBehaviour 
 {
-	public class InputHandlerControl 
+	void Awake()
 	{
-		
+
+	}
+
+	void Update()
+	{
+
 	}
 }
