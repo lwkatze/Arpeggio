@@ -21,6 +21,7 @@ namespace App.Input
 		void OnGUI()
 		{
 			getTouches();
+			checkKeys();
 		}
 
 		void getTouches()
@@ -32,6 +33,23 @@ namespace App.Input
 					hit.collider.gameObject.SendMessage("OnTouchReceived", new TouchInfo(UnityEngine.Input.touches[i]));
 				}
 			}
+		}
+
+		void checkKeys()
+		{
+			for(int i = 0; i < InputHandlerModel.inputHandlerModel.inputs.Length; i++){
+				if(UnityEngine.Input.GetKeyDown(InputHandlerModel.inputHandlerModel.inputs[i].keyCode)){
+					InputHandlerModel.inputHandlerModel.inputs[i].inputObj.SendMessage("OnKeyDown");
+				}	
+				if(UnityEngine.Input.GetKeyUp(InputHandlerModel.inputHandlerModel.inputs[i].keyCode)){
+					InputHandlerModel.inputHandlerModel.inputs[i].inputObj.SendMessage("OnKeyUp");
+				}	
+			}
+		}
+			
+		void checkAxis()
+		{
+
 		}
 	}
 }

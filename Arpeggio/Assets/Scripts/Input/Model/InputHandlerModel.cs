@@ -30,12 +30,26 @@ namespace App.Input
 		void getAllInputObjects()
 		{
 			InputObjs = inputs.Select(x => x.inputObj).ToArray();
+
+			for(int i = 0; i < InputObjs.Length; i++)
+			{
+				if(InputObjs[i])
+					if(!InputObjs[i].GetComponent<InputObjectController>())
+						InputObjs[i].AddComponent<InputObjectController>();
+			}
 		}
 	}
 
 	[System.Serializable]
 	public class InputObject
 	{
+		public enum InputObjectType { state, x_axis, y_axis, z_axis };
+
+		/// <summary>
+		/// The type of input object
+		/// </summary>
+		public InputObjectType type;
+
 		/// <summary>
 		/// The name of this input
 		/// </summary>
@@ -52,9 +66,15 @@ namespace App.Input
 		public KeyCode keyCode;
 
 		/// <summary>
-		/// Use this to apply a float 
+		/// Get value of float 
 		/// </summary>
-		public float axis { get { return axis; } }
+		public float getAxis { get { return m_axis; } }
+
+		/// <summary>
+		/// Set value of float
+		/// </summary>
+		/// <value>The set axis.</value>
+		public float setAxis { set { m_axis = value; } }
 
 		public GameObject inputObj = null;
 
